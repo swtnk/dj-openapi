@@ -1,0 +1,30 @@
+{% spaceless %}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">{% if seo_keywords %}
+<meta name="keywords" content="{{ seo_keywords|safe }}"/>{% endif %}{% if seo_description %}
+<meta name="description" content="{{ seo_description|safe }}">{% endif %}{% if seo_author %}
+<meta name="author" content="{{ seo_author|safe }}">{% endif %}
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+<meta name="robots" content="index, follow">
+{% comment %} Open Graph / Facebook {% endcomment %}{% if st_type %}
+<meta property="og:type" content="{{ st_type|safe }}">{% endif %}{% if st_url %}
+<meta property="og:url" content="{{ st_url|safe }}">{% endif %}{% if st_title %}
+<meta property="og:title" content="{{ st_title|safe }}">{% endif %}{% if st_description %}
+<meta property="og:description" content="{{ st_description|safe }}">{% endif %}{% if st_image %}
+<meta property="og:image" content="{{ st_image|safe }}">{% endif %}{% if st_site_name %}
+<meta property="og:site_name" content="{{ st_site_name|safe }}">{% endif %}{% if st_locale %}
+<meta property="og:locale" content="{{ st_locale|safe }}">{% endif %}{% if st_img_alt %}
+<meta property="og:image:alt" content="{{ st_img_alt|safe }}">{% endif %}
+{% comment %} Twitter {% endcomment %}{% if st_card %}
+<meta property="twitter:card" content="{{ st_card|safe }}">{% endif %}{% if st_url %}
+<meta property="twitter:url" content="{{ st_url|safe }}">{% endif %}{% if st_title %}
+<meta property="twitter:title" content="{{ st_title|safe }}">{% endif %}{% if st_description %}
+<meta property="twitter:description" content="{{ st_description|safe }}">{% endif %}{% if st_image %}
+<meta property="twitter:image" content="{{ st_image|safe }}">{% endif %}{% if st_site_name %}
+<meta property="twitter:site" content="{{ st_site_name|safe }}">{% endif %}{% if st_img_alt %}
+<meta property="twitter:image:alt" content="{{ st_img_alt|safe }}">{% endif %}{% if st_creator %}
+<meta property="twitter:creator" content="{{ st_creator|safe }}">{% endif %}
+{% endspaceless %}

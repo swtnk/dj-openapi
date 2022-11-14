@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{title}}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/png" href="{% static 'auth/images/icons/favicon.ico' %}" />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'auth/vendor/bootstrap/css/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'auth/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'auth/fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'auth/vendor/animate/animate.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'auth/vendor/css-hamburgers/hamburgers.min.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'auth/vendor/animsition/css/animsition.min.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'auth/vendor/select2/select2.min.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'auth/vendor/daterangepicker/daterangepicker.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'auth/css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'auth/css/main.css' %}">
+
+    <meta name="robots" content="noindex, follow">
+    <script
+        nonce="79d51537-5d00-4262-9a16-bb6390a1a6f6">(function (w, d) { !function (e, f, g, h) { e.zarazData = e.zarazData || {}; e.zarazData.executed = []; e.zaraz = { deferred: [], listeners: [] }; e.zaraz.q = []; e.zaraz._f = function (i) { return function () { var j = Array.prototype.slice.call(arguments); e.zaraz.q.push({ m: i, a: j }) } }; for (const k of ["track", "set", "debug"]) e.zaraz[k] = e.zaraz._f(k); e.zaraz.init = () => { var l = f.getElementsByTagName(h)[0], m = f.createElement(h), n = f.getElementsByTagName("title")[0]; n && (e.zarazData.t = f.getElementsByTagName("title")[0].text); e.zarazData.x = Math.random(); e.zarazData.w = e.screen.width; e.zarazData.h = e.screen.height; e.zarazData.j = e.innerHeight; e.zarazData.e = e.innerWidth; e.zarazData.l = e.location.href; e.zarazData.r = f.referrer; e.zarazData.k = e.screen.colorDepth; e.zarazData.n = f.characterSet; e.zarazData.o = (new Date).getTimezoneOffset(); if (e.dataLayer) for (const r of Object.entries(Object.entries(dataLayer).reduce(((s, t) => ({ ...s[1], ...t[1] }))))) zaraz.set(r[0], r[1], { scope: "page" }); e.zarazData.q = []; for (; e.zaraz.q.length;) { const u = e.zaraz.q.shift(); e.zarazData.q.push(u) } m.defer = !0; for (const v of [localStorage, sessionStorage]) Object.keys(v || {}).filter((x => x.startsWith("_zaraz_"))).forEach((w => { try { e.zarazData["z_" + w.slice(7)] = JSON.parse(v.getItem(w)) } catch { e.zarazData["z_" + w.slice(7)] = v.getItem(w) } })); m.referrerPolicy = "origin"; m.src = "../../../cdn-cgi/zaraz/sd0d9.js?z=" + btoa(encodeURIComponent(JSON.stringify(e.zarazData))); l.parentNode.insertBefore(m, l) };["complete", "interactive"].includes(f.readyState) ? zaraz.init() : e.addEventListener("DOMContentLoaded", zaraz.init) }(w, d, 0, "script"); })(window, document);</script>
+</head>
+
+<body>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-b-160 p-t-50">
+                <form action="{% url 'login' %}" method="post" class="login100-form validate-form">
+                    {% csrf_token %}
+                    <span class="login100-form-title p-b-43">
+                        <a href="{% url 'dashboard' %}"><span class="login100-form-title">{{application_name}}</span></a> Login
+                    </span>
+                    <div class="wrap-input100 rs1 validate-input" data-validate="Username is required">
+                        <input class="input100" type="text" name="uname">
+                        <span class="label-input100">Username</span>
+                    </div>
+                    <div class="wrap-input100 rs2 validate-input" data-validate="Password is required">
+                        <input class="input100" type="password" name="pass">
+                        <span class="label-input100">Password</span>
+                    </div>
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Sign in
+                        </button>
+                    </div>
+                    <div class="text-center w-full p-t-23">
+                        <a href="#" class="txt1">
+                            Forgot password?
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'auth/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+
+    <script src="{% static 'auth/vendor/animsition/js/animsition.min.js' %}"></script>
+
+    <script src="{% static 'auth/vendor/bootstrap/js/popper.js' %}"></script>
+    <script src="{% static 'auth/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <script src="{% static 'auth/vendor/select2/select2.min.js' %}"></script>
+
+    <script src="{% static 'auth/vendor/daterangepicker/moment.min.js' %}"></script>
+    <script src="{% static 'auth/vendor/daterangepicker/daterangepicker.js' %}"></script>
+
+    <script src="{% static 'auth/vendor/countdowntime/countdowntime.js' %}"></script>
+
+    <script src="{% static 'auth/js/main.js' %}"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-23581568-13');
+    </script>
+    <script defer
+        src="https://static.cloudflareinsights.com/beacon.min.js/vaafb692b2aea4879b33c060e79fe94621666317369993"
+        integrity="sha512-0ahDYl866UMhKuYcW078ScMalXqtFJggm7TmlUtp0UlD4eQk0Ixfnm5ykXKvGJNFjLMoortdseTfsRT8oCfgGA=="
+        data-cf-beacon='{"rayId":"769da0f51902f462","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2022.11.0","si":100}'
+        crossorigin="anonymous"></script>
+</body>
+</html>

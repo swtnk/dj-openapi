@@ -1,0 +1,60 @@
+{% load static %}
+{% spaceless %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'partials/meta.html' %}
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static '/img/apple-icon.png' %}">
+    <link rel="icon" type="image/png" href="{% static '/img/favicon.png' %}">
+    <title>
+        {{title}}
+    </title>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <!-- Nucleo Icons -->
+    <link href="{% static '/css/nucleo-icons.css' %}?v={{static_version}}" rel="stylesheet" />
+    <link href="{% static '/css/nucleo-svg.css' %}?v={{static_version}}" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link href="{% static '/css/nucleo-svg.css' %}?v={{static_version}}" rel="stylesheet" />
+    <!-- CSS Files -->
+    <link id="pagestyle" href="{% static '/css/soft-ui-dashboard.css' %}?v={{static_version}}" rel="stylesheet" />
+    <link id="pagestyle" href="{% static '/css/toastr.min.css' %}?v={{static_version}}" rel="stylesheet" />
+    <link href="{% static '/css/custom.css' %}?v={{static_version}}" rel="stylesheet" />
+    {% block end_style %}{% endblock %}
+</head>
+
+<body class="g-sidenav-show  bg-gray-100">
+    {% include 'partials/aside.html' %}
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        {% include 'partials/nav.html' %}
+        <div class="container-fluid py-4">
+            {% include 'partials/header_chips.html' %}
+            <div class="row">
+                {% block main %}
+                {% endblock %}
+            </div>
+            {% include 'partials/footer.html' %}
+        </div>
+    </main>
+    <div class="fixed-plugin">
+        {% include "partials/configurator.html" %}
+    </div>
+    <!--   Core JS Files   -->
+    <script src="{% static '/js/core/popper.min.js' %}"></script>
+    <script src="{% static '/js/core/bootstrap.min.js' %}"></script>
+    <script src="{% static '/js/plugins/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static '/js/plugins/smooth-scrollbar.min.js' %}"></script>
+    <script src="{% static '/js/plugins/chartjs.min.js' %}"></script>
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="{% static '/js/soft-ui-dashboard.min.js' %}"></script>
+    <script src="{% static '/js/toastr.min.js' %}"></script>
+    {% block end_script %}{% endblock %}
+</body>
+</html>
+{% endspaceless %}

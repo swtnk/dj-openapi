@@ -1,0 +1,25 @@
+{% load static %}
+<script src="{% static 'editor/min/vs/loader.js' %}"></script>
+<script>
+    require.config({ paths: { 'vs': '{% static "editor/min/vs" %}' }});
+</script>
+<script src="{% static 'editor/min/vs/loader.js' %}"></script>
+<script src="{% static 'editor/min/vs/editor/editor.main.nls.js' %}"></script>
+<script src="{% static 'editor/min/vs/editor/editor.main.js' %}"></script>
+<script>
+    function monacoEditor () {
+        let editor = window.monaco.editor.create(document.getElementById('json-editor'), {
+            value: "Loading",
+            language: 'json',
+            automaticLayout: true,
+            minimap: { enabled: false },
+            padding: { top: 25, right: 25 },
+            scrollbar: {
+                vertical: 'auto',
+                horizontal: 'auto'
+            },
+            theme: "vs-dark",
+        });
+        return editor;
+    }
+</script>

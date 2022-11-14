@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block end_style %}
+<link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui.css" />
+{% endblock %}
+{% block main %}
+    <div style="position: fixed; margin-top: -10px;" class="row">
+        <div class="row">
+            <div class="col-sm-1">
+                <button class="btn btn-sm btn-secondary text-white" id="save-spec" data-id="">Save</button>
+            </div>
+            <div class="col-sm-2">
+                <select class="form-control form-control-sm cursor-pointer" name="language" id="language">
+                    <option value="json">JSON</option>
+                    <option value="yaml">YAML</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5 p-2" style="position: fixed; bottom: 0;">
+        <div id="json-editor" style="height: calc(100vh - 150px);"></div>
+    </div>
+    <div class="offset-6 col-md-6">
+        <div id="swagger-ui">
+        </div>
+    </div>
+{% endblock %}
+{% block end_script %}
+<script src="https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui-bundle.js" crossorigin></script>
+{% include 'partials/monaco-editor.html' %}
+<script>
+    function generateSpec(spec = {}) {
+        window.ui = SwaggerUIBundle({
+            dom_id: '#swagger-ui',
+            url: "{{spec_url}}",
+            spec: spec
+        });
+    }
+    window.onload = () => {
+        let editor = monacoEditor();
+        let saveSpecButton = document.querySelector("#save-spec");
+        let changeLanguage = document.querySelector("#language");
+        fetch("{{spec_url}}").then(response => response.json()).then(data => {
+            generateSpec(data[0]?.specification)
+            editor.getModel().setValue(JSON.stringify(data[0]?.specification, null, 4));
+            if (saveSpecButton) {
+                saveSpecButton.dataset.id = data[0]?.id;
+            }
+        })
+
+        if (saveSpecButton) {
+            saveSpecButton.addEventListener("click", function (element) {
+                element.target.setAttribute("disabled", true);
+                element.target.innerHTML = "<i class='fa fa-spin fa-spinner text-white'></i>";
+                let formData = new FormData();
+                formData.append("id", saveSpecButton.dataset.id);
+                formData.append("specification", editor.getValue());
+                formData.append("csrfmiddlewaretoken", "{{csrf_token}}");
+                fetch("{% url 'doc_edit' %}", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    element.target.removeAttribute("disabled");
+                    element.target.innerText = "Save";
+                    toastr.success('Specification Updated')
+                })
+            })
+        }
+        
+        editor.onDidChangeModelContent(function (e) {
+            generateSpec(JSON.parse(editor.getValue()))
+        });
+
+        if (changeLanguage) {
+            changeLanguage.addEventListener('change', function(event) {
+                console.log(event.target.value)
+                console.log(editor)
+                monaco.editor.setModelLanguage(editor.getModel(), event.target.value)
+            })
+        }
+    }
+</script>
+{% endblock %}

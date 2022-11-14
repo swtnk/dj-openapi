@@ -1,0 +1,63 @@
+:root {
+    --bs-primary: #427fe2;
+}
+
+.btn-outline-primary {
+    --bs-btn-color: #427fe2;
+    --bs-btn-border-color: #427fe2;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #427fe2;
+    --bs-btn-hover-border-color: #427fe2;
+    --bs-btn-focus-shadow-rgb: 203, 12, 159;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #427fe2;
+    --bs-btn-active-border-color: #427fe2;
+    --bs-btn-active-shadow: none;
+    --bs-btn-disabled-color: #427fe2;
+    --bs-btn-disabled-bg: transparent;
+    --bs-gradient: none;
+}
+
+textarea:focus, 
+textarea.form-control:focus, 
+input.form-control:focus, 
+select.form-control:focus,
+select.form-control:active,
+input[type=text]:focus, 
+input[type=password]:focus, 
+input[type=email]:focus, 
+input[type=number]:focus, 
+[type=text].form-control:focus, 
+[type=password].form-control:focus, 
+[type=email].form-control:focus, 
+[type=tel].form-control:focus, 
+[contenteditable].form-control:focus {
+  box-shadow: inset 0 -1px 0 #ddd;
+}
+
+.top-0 {
+    top: 0 !important;
+}
+
+.border-radius-top-0 {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.navbar-vertical.navbar-expand-xs {
+    display: block;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 14.625rem !important;
+    overflow-y: auto;
+    padding: 0;
+    box-shadow: none;
+}
+
+@media (min-width: 1200px) {
+    .sidenav.fixed-start~.main-content {
+        margin-left: 15.125rem;
+    }
+}
