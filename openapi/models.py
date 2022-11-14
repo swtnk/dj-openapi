@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import User
 import uuid
 
 
@@ -239,6 +240,14 @@ class ApiSpecification(models.Model):
         auto_now=True,
         help_text="Updated at",
     )
+    created_by = models.ForeignKey(
+        to=User,
+        on_delete=models.SET_NULL,
+        related_name="spec_created_by",
+        null=True,
+        blank=True,
+    )
+    users = models.ManyToManyField(to=User, related_name="accessible_to")
 
     def __str__(self) -> str:
         return f"{self.title} - {self.id}"

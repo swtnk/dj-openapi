@@ -41,8 +41,13 @@ class LogoutView(View):
 
 class SpecificationLists(View):
     def get(self, request, *args, **kwargs):
+        if request.user.is_superuser:
+            specification = ApiSpecification.objects.all()[:10]
+        else:
+            specification = ApiSpecification.objects.filter(users=request.user)[:10]
+
         context = {
-            "specifications": ApiSpecification.objects.all()[:10],
+            "specifications": specification,
             "page": "Dashboard",
         }
         return render(request=request, template_name="home.html", context=context)
