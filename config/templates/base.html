@@ -26,10 +26,12 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
+    {% block aside %}
     {% include 'partials/aside.html' %}
+    {% endblock %}
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         {% include 'partials/nav.html' %}
-        <div class="container-fluid py-4">
+        <div class="container-fluid">
             {% include 'partials/header_chips.html' %}
             <div class="row">
                 {% block main %}
