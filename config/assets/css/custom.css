@@ -77,6 +77,10 @@ code[class*="language-"], pre[class*="language-"] {
     hyphens: none;
 }
 
+.modal {
+    z-index: 9999;
+}
+
 @media (min-width: 1200px) {
     .sidenav.fixed-start~.main-content {
         margin-left: 15.125rem;

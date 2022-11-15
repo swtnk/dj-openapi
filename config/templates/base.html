@@ -41,6 +41,8 @@
     <div class="fixed-plugin">
         {% include "partials/configurator.html" %}
     </div>
+    {% block modal %}
+    {% endblock %}
     <!--   Core JS Files   -->
     <script src="{% static '/js/core/popper.min.js' %}"></script>
     <script src="{% static '/js/core/bootstrap.min.js' %}"></script>

@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block end_style %}
+{% endblock %}
 {% block main %}
 {% spaceless %}
 <div class="col-lg-12 col-md-12 mb-md-0 mb-4">
@@ -8,35 +10,14 @@
             <div class="row">
                 <div class="col-lg-6 col-7">
                     <h6>Recent Projects</h6>
-                    {% comment %}
-                    <p class="text-sm mb-0">
-                        <i class="fa fa-check text-info" aria-hidden="true"></i>
-                        <span class="font-weight-bold ms-1">30 done</span> this month
-                    </p>
-                    {% endcomment %}
                 </div>
                 <div class="col-lg-6 col-5 my-auto text-end">
-                    {% comment %}
-                    <div class="dropdown float-lg-end pe-4">
-                        <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="fa fa-ellipsis-v text-secondary"></i>
-                        </a>
-                        <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5"
-                            aria-labelledby="dropdownTable">
-                            <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a>
-                            </li>
-                            <li><a class="dropdown-item border-radius-md" href="javascript:;">Another
-                                    action</a></li>
-                            <li><a class="dropdown-item border-radius-md" href="javascript:;">Something
-                                    else here</a></li>
-                        </ul>
-                    </div>
-                    {% endcomment %}
                     <div class="float-lg-end pe-4">
-                        <a class="btn btn-sm btn-outline-dark" id="dropdownTable" data-bs-toggle="dropdown"
-                            aria-expanded="false">New
-                        </a>
+                        <button class="btn bg-gradient-dark mb-0" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">
+                            <i class="fas fa-plus" aria-hidden="true"></i>
+                            &nbsp;&nbsp;Add New Project
+                        </button>
                     </div>
                 </div>
             </div>
@@ -46,24 +27,16 @@
                 <table class="table align-items-center mb-0">
                     <thead>
                         <tr>
-                            <th
-                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                 API Specification</th>
-                            <th
-                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                 Edit</th>
-                            {% comment %}
-                            <th
-                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                Title</th>
-                            {% endcomment %}
-                            <th
-                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                Swagger
-                            </th>
-                            <th
-                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                Swagger</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                 Redoc</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -79,40 +52,27 @@
                                     </div>
                                 </div>
                             </td>
-                            {% comment %}
-                            <td>
-                                <div class="avatar-group mt-2">
-                                    <a href="javascript:;" class="avatar avatar-xs rounded-circle"
-                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                        title="Ryan Tompson">
-                                        <img src="{% static '/img/team-1.jpg' %}" alt="team1">
-                                    </a>
-                                    <a href="javascript:;" class="avatar avatar-xs rounded-circle"
-                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                        title="Romina Hadid">
-                                        <img src="{% static '/img/team-2.jpg' %}" alt="team2">
-                                    </a>
-                                    <a href="javascript:;" class="avatar avatar-xs rounded-circle"
-                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                        title="Alexander Smith">
-                                        <img src="{% static '/img/team-3.jpg' %}" alt="team3">
-                                    </a>
-                                    <a href="javascript:;" class="avatar avatar-xs rounded-circle"
-                                        data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                        title="Jessica Doe">
-                                        <img src="{% static '/img/team-4.jpg' %}" alt="team4">
-                                    </a>
-                                </div>
-                            </td>
-                            {% endcomment %}
                             <td class="align-middle text-center">
-                                <span class="text-xs font-weight-bold px-1"> <a href="{% url 'doc_edit_view' id=specification.id %}" target="_blank"><i class="fa fa-pencil-square-o"></i></a> </span>
+                                <span class="text-xs font-weight-bold px-1"> <a class="btn"
+                                        href="{% url 'doc_edit_view' id=specification.id %}" target="_blank"><i
+                                            class="fa fa-pencil-square-o"></i></a> </span>
                             </td>
                             <td class="align-middle text-center">
-                                <span class="text-xs font-weight-bold px-1"> <a href="{% url 'doc_view' id=specification.id %}" target="_blank"><i class="fa fa-eye"></i></a> </span>
+                                <span class="text-xs font-weight-bold px-1"> <a class="btn"
+                                        href="{% url 'doc_view' id=specification.id %}" target="_blank"><i
+                                            class="fa fa-eye"></i></a> </span>
                             </td>
                             <td class="align-middle text-center">
-                                <span class="text-xs font-weight-bold px-1"> <a href="/openapi/docs/{{specification.id}}?style=redoc" target="_blank"><i class="fa fa-eye"></i></a> </span>
+                                <span class="text-xs font-weight-bold px-1"> <a class="btn"
+                                        href="/openapi/docs/{{specification.id}}?style=redoc" target="_blank"><i
+                                            class="fa fa-eye"></i></a> </span>
+                            </td>
+                            <td class="align-middle text-center">
+                                <span class="text-xs font-weight-bold px-1">
+                                    <a href="{% url 'spec_delete' id=specification.id %}" type="submit" class="btn">
+                                        <i class="fa fa-trash text-danger"></i>
+                                    </a>
+                                </span>
                             </td>
                         </tr>
                         {% endfor %}
@@ -122,79 +82,83 @@
         </div>
     </div>
 </div>
-{% comment %}
-<div class="col-lg-4 col-md-6">
-    <div class="card h-100">
-        <div class="card-header pb-0">
-            <h6>Steps</h6>
-            <p class="text-sm">
-                <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
-                <span class="font-weight-bold">24%</span> this month
-            </p>
-        </div>
-        <div class="card-body p-3">
-            <div class="timeline timeline-one-side">
-                <div class="timeline-block mb-3">
-                    <span class="timeline-step">
-                        <i class="ni ni-bell-55 text-success text-gradient"></i>
-                    </span>
-                    <div class="timeline-content">
-                        <h6 class="text-dark text-sm font-weight-bold mb-0">Click on <a class="btn btn-sm btn-outline-dark">New</a></h6>
-                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">22 DEC 7:20 PM</p>
-                    </div>
-                </div>
-                <div class="timeline-block mb-3">
-                    <span class="timeline-step">
-                        <i class="ni ni-html5 text-danger text-gradient"></i>
-                    </span>
-                    <div class="timeline-content">
-                        <h6 class="text-dark text-sm font-weight-bold mb-0">New order #1832412</h6>
-                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 11 PM</p>
-                    </div>
-                </div>
-                <div class="timeline-block mb-3">
-                    <span class="timeline-step">
-                        <i class="ni ni-cart text-info text-gradient"></i>
-                    </span>
-                    <div class="timeline-content">
-                        <h6 class="text-dark text-sm font-weight-bold mb-0">Server payments for April
-                        </h6>
-                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 9:34 PM</p>
-                    </div>
-                </div>
-                <div class="timeline-block mb-3">
-                    <span class="timeline-step">
-                        <i class="ni ni-credit-card text-warning text-gradient"></i>
-                    </span>
-                    <div class="timeline-content">
-                        <h6 class="text-dark text-sm font-weight-bold mb-0">New card added for order
-                            #4395133</h6>
-                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">20 DEC 2:20 AM</p>
-                    </div>
-                </div>
-                <div class="timeline-block mb-3">
-                    <span class="timeline-step">
-                        <i class="ni ni-key-25 text-primary text-gradient"></i>
-                    </span>
-                    <div class="timeline-content">
-                        <h6 class="text-dark text-sm font-weight-bold mb-0">Unlock packages for
-                            development</h6>
-                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">18 DEC 4:54 AM</p>
-                    </div>
-                </div>
-                <div class="timeline-block">
-                    <span class="timeline-step">
-                        <i class="ni ni-money-coins text-dark text-gradient"></i>
-                    </span>
-                    <div class="timeline-content">
-                        <h6 class="text-dark text-sm font-weight-bold mb-0">New order #9583120</h6>
-                        <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">17 DEC</p>
-                    </div>
+{% endspaceless %}
+{% endblock %}
+{% block modal %}
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Create Project</h5>
+                <button type="button" class="btn-close text-black" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="fas fa-times text-dark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="offset-3 col-sm-6">
+                    <form id="createSpec" method="post" action="{% url 'spec_create' %}">
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="title" id="title">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputPassword3" class="col-sm-2 col-form-label">Description</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputPassword3" class="col-sm-2 col-form-label">Specification</label>
+                            <div class="col-md-10">
+                                <div id="json-editor" style="height: 400px;"></div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn bg-gradient-dark">Save</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-{% endcomment %}
-{% endspaceless %}
+{% endblock %}
+{% block end_script %}
+{% include 'partials/monaco-editor.html' %}
+<script>
+    window.onload = () => {
+        let editor = monacoEditor();
+        let createSpecForm = document.querySelector("#createSpec");
+        let placeholderSpec = {"openapi": "3.0.3", "info": {"title": "TITLE", "description": "DESCRIPTION", "termsOfService": "LINK.com", "contact": {"email": "EMAIL@EXAMPLE.COM"}, "license": {"name": "LICENSE", "url": "LINK-TO-LICENCE.COM"}, "version": "VERSION"}, "externalDocs": {"description": "EXTERNAL DESCRIPTION", "url": "LINK-TO-EXTERNAL-DESCRIPTION.COM"}, "servers": [{"url": "https://link-to-server.com/"}], "tags": [{"name": "tag-1", "description": "Tag 1 description", "externalDocs": {"description": "External Description", "url": "link-to-external-description.com"}}], "paths": {"/path-1": {"get": {"tags": ["tag-1"], "summary": "Get tag-1", "description": "Multiple status values can be provided with comma separated strings", "operationId": "findPetsByStatus", "parameters": [{"name": "status", "in": "query", "description": "Status values that need to be considered for filter", "required": false, "explode": true, "schema": {"type": "string", "default": "available", "enum": ["available", "pending", "sold"]}}], "responses": {"200": {"description": "successful operation", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Tag"}}}, "application/xml": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/Tag"}}}}}, "400": {"description": "Invalid status value"}}, "security": [{"example_auth": ["write:tag", "read:tag"]}]}, "post": {"tags": ["tag-1"], "summary": "Add a new tag-1", "description": "Description for adding a new tag-1", "operationId": "addTag", "requestBody": {"description": "Create a new tag in the store", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Tag"}}, "application/xml": {"schema": {"$ref": "#/components/schemas/Tag"}}, "application/x-www-form-urlencoded": {"schema": {"$ref": "#/components/schemas/Tag"}}}, "required": true}, "responses": {"200": {"description": "Successful operation", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Tag"}}, "application/xml": {"schema": {"$ref": "#/components/schemas/Tag"}}}}, "405": {"description": "Invalid input"}}, "security": [{"example_Auth": ["write:tag", "read:tag"]}]}}}, "components": {"schemas": {"Tag": {"required": ["name", "photoUrls"], "type": "object", "properties": {"id": {"type": "integer", "format": "int64", "example": 10}, "name": {"type": "string", "example": "doggie"}, "photoUrls": {"type": "array", "xml": {"wrapped": true}, "items": {"type": "string", "xml": {"name": "photoUrl"}}}, "tags": {"type": "array", "xml": {"wrapped": true}, "items": {"$ref": "#/components/schemas/Tag"}}, "status": {"type": "string", "description": "tag status in the store", "enum": ["available", "pending", "sold"]}}, "xml": {"name": "tag"}}, "User": {"type": "object", "properties": {"id": {"type": "integer", "format": "int64", "example": 10}, "username": {"type": "string", "example": "theUser"}, "firstName": {"type": "string", "example": "John"}, "lastName": {"type": "string", "example": "James"}, "email": {"type": "string", "example": "john@email.com"}, "password": {"type": "string", "example": "12345"}, "phone": {"type": "string", "example": "12345"}, "userStatus": {"type": "integer", "description": "User Status", "format": "int32", "example": 1}}, "xml": {"name": "user"}}}, "requestBodies": {"Tag": {"description": "Tag object that needs to be added to the store", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/Tag"}}, "application/xml": {"schema": {"$ref": "#/components/schemas/Tag"}}}}, "UserArray": {"description": "List of user object", "content": {"application/json": {"schema": {"type": "array", "items": {"$ref": "#/components/schemas/User"}}}}}}, "securitySchemes": {"example_auth": {"type": "oauth2", "flows": {"implicit": {"authorizationUrl": "https://authorization-url.example.com", "scopes": {"write:tags": "modify tags in your account", "read:tags": "read your tags"}}}}, "api_key": {"type": "apiKey", "name": "api_key", "in": "header"}}}}
+        editor.getModel().setValue(JSON.stringify(placeholderSpec, null, 4));
+        if (createSpecForm) {
+            createSpecForm.addEventListener("submit", function(event) {
+                event.preventDefault();
+                let formData = new FormData(createSpecForm);
+                formData.append("csrfmiddlewaretoken", "{{csrf_token}}");
+                formData.append("specification", JSON.stringify(editor.getValue()));
+                fetch("{% url 'spec_create' %}", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data?.success == "success") {
+                        toastr.info("Specification Created");
+                        window.open("{% url 'dashboard' %}")
+                    } else if (data?.success == "failed") {
+                        toastr.error("Failed to create specification");
+                    } else {
+                        toastr.error("Something went wrong");
+                        window.open("{% url 'dashboard' %}");
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+            })
+        }
+    }
+</script>
 {% endblock %}

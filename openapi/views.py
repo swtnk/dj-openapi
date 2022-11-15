@@ -2,11 +2,13 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
+from django.db.models import Q
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import ApiSpecification
 from .serializer import ApiSpecificationSerializer
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 import json
 
 # Create your views here.
@@ -44,7 +46,9 @@ class SpecificationLists(View):
         if request.user.is_superuser:
             specification = ApiSpecification.objects.all()[:10]
         else:
-            specification = ApiSpecification.objects.filter(users=request.user)[:10]
+            specification = ApiSpecification.objects.filter(
+                Q(users=request.user) | Q(created_by=request.user)
+            )[:10]
 
         context = {
             "specifications": specification,
@@ -54,11 +58,43 @@ class SpecificationLists(View):
 
 
 class CreateApiSpecification(View):
+    def post(self, request, *args, **kwargs):
+        request_data = request.POST
+        title = request_data.get("title")
+        description = request_data.get("description")
+        specification = json.loads(request_data.get("specification"))
+        data = {
+            "title": title,
+            "description": description,
+            "specification": specification,
+            "created_by": request.user.id,
+            "users": [request.user.id],
+        }
+        serializer = ApiSpecificationSerializer(data=data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            response_data = {
+                "status": "success",
+                "message": "Specification Created",
+                "data": serializer.data,
+            }
+            return JsonResponse(data=response_data)
+        else:
+            return JsonResponse(
+                data={"status": "failed", "message": "Failed to create specification"}
+            )
+
+
+class DeleteApiSpecification(View):
     def get(self, request, *args, **kwargs):
-        context = {"page": "Create Specification"}
-        return render(
-            request=request, template_name="create_specification.html", context=context
-        )
+        specification_id = kwargs.get("id")
+        specification_object = ApiSpecification.objects.filter(id=specification_id)
+        if specification_object.exists():
+            specification = specification_object.first()
+            # print(request.user, specification.users.filter(id=request.user.id))
+            # if request.user.is_superuser or specification.accessible_to.filter(user=request.user).exists():
+            specification.delete()
+        return redirect("dashboard")
 
 
 class ApiDocView(View):

@@ -6,6 +6,8 @@ from .views import (
     ApiSpecificationOnlyView,
     ApiDocEditView,
     ApiDocEdit,
+    CreateApiSpecification,
+    DeleteApiSpecification,
 )
 
 urlpatterns = [
@@ -23,5 +25,15 @@ urlpatterns = [
         "specs_only/<uuid:id>",
         login_required(ApiSpecificationOnlyView.as_view()),
         name="spec_only",
+    ),
+    path(
+        "spec/create",
+        login_required(CreateApiSpecification.as_view()),
+        name="spec_create",
+    ),
+    path(
+        "spec/<uuid:id>/delete",
+        login_required(DeleteApiSpecification.as_view()),
+        name="spec_delete",
     ),
 ]

@@ -66,6 +66,9 @@
                     element.target.innerText = "Save";
                     toastr.success('Specification Updated')
                 })
+                .catch(err => {
+                    console.log(err);
+                })
             })
         }
         
@@ -75,8 +78,6 @@
 
         if (changeLanguage) {
             changeLanguage.addEventListener('change', function(event) {
-                console.log(event.target.value)
-                console.log(editor)
                 monaco.editor.setModelLanguage(editor.getModel(), event.target.value)
             })
         }
