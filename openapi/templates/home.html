@@ -137,7 +137,7 @@
                 event.preventDefault();
                 let formData = new FormData(createSpecForm);
                 formData.append("csrfmiddlewaretoken", "{{csrf_token}}");
-                formData.append("specification", JSON.stringify(editor.getValue()));
+                formData.append("specification", editor.getValue());
                 fetch("{% url 'spec_create' %}", {
                     method: "POST",
                     body: formData
