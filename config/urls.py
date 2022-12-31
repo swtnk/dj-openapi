@@ -17,16 +17,37 @@ from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.urls import path, include
-from openapi.views import SpecificationLists, LoginView, LogoutView
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
+from openapi.views import SpecificationLists, LoginView, LogoutView, FormatConverter
 
 admin.site.site_header = settings.APP_NAME
 admin.site.site_title = settings.APP_NAME
 admin.site.index_title = settings.APP_NAME
 
 urlpatterns = [
+    path("", login_required(SpecificationLists.as_view()), name="dashboard"),
     path("admin/", admin.site.urls, name="admin"),
-    path("openapi/", include("openapi.urls")),
     path("login/", LoginView.as_view(), name="login"),
     path("logout/", login_required(LogoutView.as_view()), name="logout"),
-    path("", login_required(SpecificationLists.as_view()), name="dashboard"),
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path(
+        "api/schema/swagger-ui/",
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path(
+        "api/schema/redoc/",
+        SpectacularRedocView.as_view(url_name="schema"),
+        name="redoc",
+    ),
+    path("openapi/", include("openapi.urls")),
+    path(
+        "format-converter/",
+        login_required(FormatConverter.as_view()),
+        name="format_converter",
+    ),
 ]

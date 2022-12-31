@@ -12,6 +12,8 @@ djangorestframework = "*"
 markdown = "*"
 django-filter = "*"
 django-admin-argon-dashboard = "*"
+pyyaml = "*"
+drf-spectacular = {extras = ["sidecar"], version = "*"}
 
 [dev-packages]
 

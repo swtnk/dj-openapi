@@ -5,11 +5,12 @@ from django.http import JsonResponse
 from django.db.models import Q
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import ApiSpecification
-from .serializer import ApiSpecificationSerializer
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 import json
+from .models import ApiSpecification
+from .serializer import ApiSpecificationSerializer
+from config.utils import yaml_json_converter
 
 # Create your views here.
 class LoginView(View):
@@ -154,3 +155,10 @@ class ApiDocEdit(APIView):
                     {"status": "success", "data": serializer.data, "message": "updated"}
                 )
         return Response({"status": "failed", "message": "invalid request"})
+
+
+class FormatConverter(APIView):
+    def post(self, request, *args, **kwargs):
+        request_data = request.data
+        print(request_data)
+        return Response(data={})

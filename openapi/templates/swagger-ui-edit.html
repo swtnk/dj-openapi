@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block end_style %}
-<link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui.css" />
+<link rel="stylesheet" href="{% static '/css/swagger-ui.css' %}" />
 {% endblock %}
 {% block aside %}
 {% endblock %}
@@ -38,7 +38,7 @@
     </div>
 {% endblock %}
 {% block end_script %}
-<script src="https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui-bundle.js" crossorigin></script>
+<script src="{% static '/js/swagger-ui-bundle.js' %}" crossorigin></script>
 {% include 'partials/monaco-editor.html' %}
 <script>
     function generateSpec(spec = {}) {
